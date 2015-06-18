@@ -23,8 +23,8 @@ public:
 	
 	int get_fd() const;
 	
-	void setTimeout(long to);
-	long getTimeout() const;
+	void set_timeout(long to);
+	long get_timeout() const;
 	
 	template <typename T>
 	void queue_read(T &data)
@@ -58,4 +58,7 @@ public:
 	
 	void abort_read();
 	void abort_write();
+	
+	int get_write_size() const;
+	int get_read_size() const;
 };

@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -25,12 +24,12 @@ int TCPConnection::get_fd() const
 	return sockfd;
 }
 
-void TCPConnection::setTimeout(long to)
+void TCPConnection::set_timeout(long to)
 {
 	timeout = to;
 }
 
-long TCPConnection::getTimeout() const
+long TCPConnection::get_timeout() const
 {
 	return timeout;
 }
@@ -86,7 +85,7 @@ void TCPConnection::perform_read() throw(TCPException,TCPAbortException)
 		}
 		
 		int flags = fcntl(sockfd, F_GETFL, 0);
-		fprintf(stdout,"read %d\n",pair.second);
+		
 		fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
 		int r = ::read(sockfd, pair.first, pair.second);
 		fcntl(sockfd, F_SETFL, flags);
@@ -142,14 +141,14 @@ void TCPConnection::perform_write() throw(TCPException,TCPAbortException)
 		}
 		
 		int flags = fcntl(sockfd, F_GETFL, 0);
-		fprintf(stdout,"write %d\n",pair.second);
+		
 		fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
 		int r = ::write(sockfd, pair.first, pair.second);
 		fcntl(sockfd, F_SETFL, flags);
 		
 		if(r < 0)
 		{
-			throw TCPException("Error reading data");
+			throw TCPException("Error writing data");
 		}
 		if(r == 0)
 		{
@@ -181,4 +180,14 @@ void TCPConnection::abort_write()
 	{
 		write_queue.pop();
 	}
+}
+
+int TCPConnection::get_write_size() const
+{
+	return write_queue.size();
+}
+
+int TCPConnection::get_read_size() const
+{
+	return read_queue.size();
 }

@@ -94,7 +94,7 @@ TCPServer::TCPServer(
 	});
 }
 
-TCPServer::~TCPServer() throw(TCPException)
+TCPServer::~TCPServer()
 {
 	active = false;
 	listener->join();

@@ -6,6 +6,7 @@
 #include <list>
 
 #include <unistd.h>
+#include <sys/socket.h>
 #include <netinet/in.h>
 
 #include "connection.hpp"
@@ -40,5 +41,5 @@ public:
 	    std::function<void(const std::string &)> _error_handler
 	) throw(TCPException);
 	
-	~TCPServer() throw(TCPException);
+	~TCPServer();
 };
