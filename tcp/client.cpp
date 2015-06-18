@@ -40,7 +40,7 @@ TCPConnection *TCPClient::connect(const std::string &host, int port) throw(TCPEx
 	return new TCPConnection(sockfd);
 }
 
-void TCPClient::disconect(TCPConnection *conn) throw(TCPException)
+void TCPClient::disconnect(TCPConnection *conn) throw(TCPException)
 {
 	if(conn == nullptr)
 	{

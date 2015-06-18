@@ -7,5 +7,5 @@ class TCPClient
 {
 public:
 	static TCPConnection *connect(const std::string &host, int port) throw(TCPException);
-	static void disconect(TCPConnection *conn) throw(TCPException);
+	static void disconnect(TCPConnection *conn) throw(TCPException);
 };
